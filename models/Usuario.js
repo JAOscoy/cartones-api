@@ -114,7 +114,7 @@ UsuarioSchema.methods.crearPassword = function (password) {
   };
   
   /*
-  * Devuelve la representación de un usuario, sólo datos públicos*/
+  * Devuelve la representación de un usuario, sólo datos públicos
   
   UsuarioSchema.methods.publicData = function(){
     return {
@@ -131,6 +131,6 @@ UsuarioSchema.methods.crearPassword = function (password) {
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     };
-  };
+  };*/
   
   mongoose.model("Usuario", UsuarioSchema);

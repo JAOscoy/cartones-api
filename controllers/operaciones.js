@@ -3,8 +3,6 @@ const Operaciones = mongoose.model('Operaciones')
 
 function crearOperaciones(req, res, next) {
   var operacion = new Operaciones(req.body)
-  operacion.anunciante = req.usuario.id
-  operacion.estado = 'disponible'
   operacion.save().then(operacion => {
     res.status(201).send(operacion)
   }).catch(next)

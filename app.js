@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 const mongoose = require("mongoose");
 
 mongoose.connect(
-  "mongodb+srv://cluster0.yx5qd.mongodb.net/cartonesHidalgo"
+  "mongodb+srv://introabd:introabd1234@cluster0.yx5qd.mongodb.net/cartonesHidalgo"
 );
 mongoose.set("debug", true);
 
@@ -22,6 +22,7 @@ mongoose.set("debug", true);
 require("./models/Usuario");
 require('./config/passport');
 require('./models/Operaciones');
+require('./models/Solicitudes');
 // Agregamos el código de nuestro router (routes/index.js)
 app.use('/v1', require('./routes'));
 
