@@ -24,6 +24,7 @@ function crearSolicitud(req, res, next) { // POST v1/solicitudes?mascota_id=021a
   }
 
 function obtenerSolicitud(req, res, next) {
+  if (req.params.id){
   Solicitud.findOne({ _id: req.params.id, usuario: req.usuario.id})
       .then(async (solicitud) => {
         // añadimos información sobre la mascota
@@ -37,7 +38,11 @@ function obtenerSolicitud(req, res, next) {
           res.send(solicitud)
         }
       }).catch(next)
-  }
+  } else {
+    Solicitud.find().populate('solicitud', 'idOperacion, idSolicitante, estado').then(solicitud=>{
+      res.send(solicitud)
+    }).catch(next)
+  }}
 
 module.exports = {
   crearSolicitud,

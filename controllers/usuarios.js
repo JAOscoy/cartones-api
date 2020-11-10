@@ -58,13 +58,18 @@ function crearUsuario(req, res, next) {
 }
 
 function obtenerUsuarios(req, res, next) {
+  if(req.params.id){
   Usuario.findById(req.usuario.id, (err, user) => {
     if (!user || err) {
       return res.sendStatus(401)
-    }
+    } 
     return res.json(user.publicData());
   }).catch(next);
-}
+} else {
+  Usuario.find().populate('usuario', 'username, nombre, apellidos').then(usuario=>{
+    res.send(usuario)
+  }).catch(next)
+}}
 
 function modificarUsuario(req, res, next) {
   console.log(req.usuario)

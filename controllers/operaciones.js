@@ -11,7 +11,7 @@ function crearOperaciones(req, res, next) {
 function obtenerOperaciones(req, res, next) {
     if(req.params.id){
       Operaciones.findById(req.params.id)
-              .populate('anunciante', 'username nombre apellido bio foto').then(operaciones => {
+              .populate('operaciones', 'nombre, tipoOperacion, fotos, descripcion, beneficios').then(operaciones => {
             res.send(operaciones)
           }).catch(next)
     } else {
