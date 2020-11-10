@@ -14,25 +14,17 @@ function crearSolicitud(req, res, next) { // POST v1/solicitudes?mascota_id=021a
     const solicitud = new Solicitud()
     solicitud.operaciones = req.query.operaciones_id
     solicitud.solicitante = req.usuario.id
-    solicitud.estado = 'pendiente'
-    solicitud.fechaCierre = 
-    solicitud.save().then(async s => {
+    solicitud.estado = 'Pendiente'
+    solicitud.fechaCierre = Today()
+    //solicitud.save().then(async s => {
       // antes de devolver respuesta actualizamos el tipo de usuario a anunciante
-      await Usuario.findOneAndUpdate({_id: req.usuario.id}, {tipo: 'cliente'})
-      res.status(201).send(s)
+      //await Usuario.findOneAndUpdate({_id: req.usuario.id}, {tipo: 'cliente'})
+      //res.status(201).send(s)
     }).catch(next)
-  }).catch(next)
-}
+  }
 
 function obtenerSolicitud(req, res, next) {
-  if (!req.params.id) {
-    // sin :id, solo enlistaremos las solicitudes dónde el usuario es anunciante o solicitante
-    Solicitud.find({ $or: [{ solicitante: req.usuario.id }, { anunciante: req.usuario.id }] }).then(solicitudes => {
-      res.send(solicitudes)
-    }).catch(next)
-  } else {
-    // Al obtener una solicitud individual con el :id poblaremos los campos necesarios
-    Solicitud.findOne({ _id: req.params.id, $or: [{ solicitante: req.usuario.id }, { anunciante: req.usuario.id }] })
+  Solicitud.findOne({ _id: req.params.id, $or: [{ solicitante: req.usuario.id }, { anunciante: req.usuario.id }] })
       .then(async (solicitud) => {
         // añadimos información sobre la mascota
         await solicitud.populate('mascota').execPopulate()

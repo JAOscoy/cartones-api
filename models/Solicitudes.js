@@ -21,12 +21,12 @@ var SolicitudSchema = new mongoose.Schema(
     idOperacion: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "Operaciones",
+      ref: "operaciones",
     },
     idUsuarioSolicitante: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "Usuario",
+      ref: "usuario",
     },
     fechaCierre: {
       type: Date
