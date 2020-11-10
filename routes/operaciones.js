@@ -5,7 +5,7 @@ const {
   modificarOperaciones,
   eliminarOperaciones
 } = require('../controllers/operaciones')
-//var auth = require('./auth');
+var auth = require('./auth');
 
 router.get('/', obtenerOperaciones)
 router.get('/:id', obtenerOperaciones)// nuevo endpoint con todos los detalles de operaciones

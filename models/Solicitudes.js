@@ -21,7 +21,7 @@ var SolicitudSchema = new mongoose.Schema(
     idOperacion: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "Operacion",
+      ref: "Operaciones",
     },
     idUsuarioSolicitante: {
       type: mongoose.Schema.Types.ObjectId,
@@ -31,7 +31,7 @@ var SolicitudSchema = new mongoose.Schema(
     fechaCierre: {
       type: Date
     },
-    estado: { type: String, enum: ["aceptada", "cancelada", "pendiente"] },
+    estado: { type: String, enum: ["Aceptada", "Cancelada", "Pendiente"] },
   },
   { collection: "solicitudes", timestamps: true }
 );

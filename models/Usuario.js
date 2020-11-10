@@ -34,10 +34,10 @@ class Usuario {
 
   // Usuario.js
 const mongoose = require("mongoose");
+const uniqueValidator = require("mongoose-unique-validator");
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const secret = require('../config').secret;
-const uniqueValidator = require("mongoose-unique-validator");
 
 const UsuarioSchema = new mongoose.Schema(
   {
