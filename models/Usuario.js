@@ -74,7 +74,7 @@ const UsuarioSchema = new mongoose.Schema(
 UsuarioSchema.plugin(uniqueValidator, { message: "Ya existe" });
 
 UsuarioSchema.methods.crearPassword = function (password) {
-    this.salt = crypto.randomBytes(16).toString("hex"); // generando una "sal" random para cada usuario
+    this.salt = crypto.randomBytes(16).toString("hex"); // generando una "salt" random para cada usuario
     this.hash = crypto
       .pbkdf2Sync(password, this.salt, 10000, 512, "sha512")
       .toString("hex"); // generando un hash utilizando la sal

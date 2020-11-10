@@ -24,21 +24,20 @@ function crearSolicitud(req, res, next) { // POST v1/solicitudes?mascota_id=021a
   }
 
 function obtenerSolicitud(req, res, next) {
-  Solicitud.findOne({ _id: req.params.id, $or: [{ solicitante: req.usuario.id }, { anunciante: req.usuario.id }] })
+  Solicitud.findOne({ _id: req.params.id, usuario: req.usuario.id})
       .then(async (solicitud) => {
         // añadimos información sobre la mascota
-        await solicitud.populate('mascota').execPopulate()
-        if (solicitud.estado === 'aceptada') {
+        await solicitud.populate('operaciones').execPopulate()
+        if (solicitud.estado === 'Aceptada') {
           // Si la solicitud ha sido aceptada, se mostrará la información de contacto
-          await solicitud.populate('anunciante', 'username nombre apellido bio foto telefono email').execPopulate()
-          await solicitud.populate('solicitante', 'username nombre apellido bio foto telefono email').execPopulate()
+          await solicitud.populate('usuarios', 'username nombre apellido bio foto telefono email').execPopulate()
+          await solicitud.populate('usuarios', 'username nombre apellido bio foto telefono email').execPopulate()
           res.send(solicitud)
         } else {
           res.send(solicitud)
         }
       }).catch(next)
   }
-}
 
 module.exports = {
   crearSolicitud,
