@@ -59,7 +59,7 @@ app.use(function(req, res, next) {
 });
 
 // Iniciando el servidor...
-var server = app.listen(process.env.PORT || 3000, function () {
+app.listen(process.env.PORT || 3000, function () {
   console.log('Escuchando en el puerto ', this.address().port, app.settings.env);
 });
 
