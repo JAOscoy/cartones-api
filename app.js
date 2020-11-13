@@ -12,10 +12,35 @@ app.use(bodyParser.json());
 
 const mongoose = require("mongoose");
 
-mongoose.connect(
+/*mongoose.connect(
   "mongodb+srv://introabd:introabd1234@cluster0.yx5qd.mongodb.net/cartonesHidalgo"
+);*/
+var isProduction = process.env.NODE_ENV === 'production';
+
+mongoose.connect(
+  process.env.MONGODB_URI, // obtiene la url de conexión desde las variables de entorno
+  { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }
 );
-mongoose.set("debug", true);
+
+const errorhandler = require('errorhandler')
+if (!isProduction) {
+  mongoose.set('debug', true)
+  app.use(errorhandler())
+
+  // imprimirá los errores en development
+  app.use(function (err, req, res, next) {
+    console.log(err.stack);
+    res.status(err.status || 500);
+    res.json({
+      'errors': {
+        message: err.message,
+        error: err
+      }
+    })
+  })
+}
+
+// mongoose.set("debug", true);
 
 // Aquí se importarán el resto de los modelos cuando esten listos.
 
@@ -34,7 +59,9 @@ app.use(function(req, res, next) {
 });
 
 // Iniciando el servidor...
-var server = app.listen(process.env.PORT || 3000, function(){
+var server = app.listen(process.env.PORT || 3000, function () {
   console.log('Escuchando en el puerto ' + server.address().port);
 });
+
+
 
